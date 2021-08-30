@@ -15,7 +15,7 @@ module.exports = {
     async execute(interaction){
     const user = interaction.options.getUser('target')
     //gets background image   
-    let welcome = await jimp.read('./12.jpg')
+    let welcome = await jimp.read('./images/12.jpg')
         
         
     console.log(user.displayAvatarURL({format: 'png'}))
@@ -27,8 +27,8 @@ module.exports = {
 
         welcome.composite(avatarImage, 700, 80) //places avatar image on background image
         
-        welcome.write('Welcome.png', async() =>{  //saves edited image and sends it to discord as a reply
-            await interaction.reply( { files: ["Welcome.png"] }) 
+        welcome.write('./images/Welcome.png', async() =>{  //saves edited image and sends it to discord as a reply
+            await interaction.reply( { files: ["./images/Welcome.png"] }) 
         })
    
    

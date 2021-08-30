@@ -15,7 +15,7 @@ module.exports = {
     async execute(interaction){
        
         
-    let backgroundImage = await jimp.read('./12.jpg')
+    let backgroundImage = await jimp.read('./images//12.jpg')
         
         
     
@@ -30,10 +30,10 @@ module.exports = {
      backgroundImage.composite(targetImage, 1040, 630) //put target image on top of background image at specified coordinates
     console.log("writing image")
     
-    backgroundImage.write('Welcome.png', async () =>{
+    backgroundImage.write('./images/Welcome.png', async () =>{
         //saves edited image and sends to discord channel as reply when done.
         console.log(`last image `)
-        await interaction.reply( { files: ['Welcome.png'] }) 
+        await interaction.reply( { files: ['./images/Welcome.png'] }) 
         
     })
     
