@@ -15,29 +15,29 @@ module.exports = {
     async execute(interaction){
        
         
-    let Image = await jimp.read('./12.jpg')
+    let backgroundImage = await jimp.read('./12.jpg')
         
         
     
     const URL =  interaction.options.getString('url')
     
     
-    const targetImage = await jimp.read(URL)
+    const targetImage = await jimp.read(URL) //gets image from url
    try{
     console.log("resizing image")
-     targetImage.resize(256, 256) //We resize the avatar 
+     targetImage.resize(256, 256) // resizes the target image
     console.log("editing image")
-     Image.composite(targetImage, 1040, 630) //We put the avatar on the image on the position 20, 20
+     backgroundImage.composite(targetImage, 1040, 630) //put target image on top of background image at specified coordinates
     console.log("writing image")
     
-    fongImage.write('Welcome.png', async () =>{
-        
+    backgroundImage.write('Welcome.png', async () =>{
+        //saves edited image and sends to discord channel as reply when done.
         console.log(`last image `)
         await interaction.reply( { files: ['Welcome.png'] }) 
         
     })
     
-    //We sent the file to the channel
+    
 
 
    }
