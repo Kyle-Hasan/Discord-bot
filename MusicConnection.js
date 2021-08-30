@@ -8,7 +8,10 @@ const {
     VoiceConnectionDestroyedState,
 } = require('@discordjs/voice');
 
+//this class is used to make one music connection per server.
+
 class MusicConnection{
+    //creates voice connection to the channel the user who used the play command is in
     constructor(interaction){
         this.connection = joinVoiceChannel({ 
             channelId: interaction.member.voice.channel.id,
@@ -21,8 +24,9 @@ class MusicConnection{
         this.player = createAudioPlayer()
         this.player.on('stateChange', async  (oldState, newState) => {
             if (newState.status === AudioPlayerStatus.Idle && oldState.status !== AudioPlayerStatus.Idle) {
-                // If the Idle state is entered from a non-Idle state, it means that an audio resource has finished playing.
-                // The queue is then processed to start playing the next track, if one is available.
+                // Turn on event listener for seeing when the player goes from non-idle to idle. This state change means that
+                //the current song has finished playing.
+                // The next song in the queue is then played, if it exists
                 //if the queue is empty and the state goes to idle, then the connection can be destroyed since theres no
                 //more songs to play
                if(this.queue.length == 0 ){
@@ -73,20 +77,20 @@ async playSong() {
             return
         }
         console.log("playing new song")
-        //creates new stream from youtube url
+        //creates new stream from  url
         this.stream = await ytdl.stream(`${this.queue.shift()}`);
                 
         this.resource = await createAudioResource(this.stream.stream, {
             inputType : this.stream.type}
         )
         
-                
+        //plays resource and puts on the voice connection for the channel        
         this.player.play(this.resource);
         
         this.connection.subscribe(this.player);
         }
         catch(error){
-            this.player.removeAllListeners('stateChange')
+            
             console.log(error)
             
         }
