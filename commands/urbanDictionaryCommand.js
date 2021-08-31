@@ -23,8 +23,7 @@ module.exports = {
         try{
              //gets information about word from urban dictionary api and converts it into json
             const { list } = await fetch(`https://api.urbandictionary.com/v0/define?${query}`).then(response => response.json());
-            console.log(list)
-            console.log(`https://api.urbandictionary.com/v0/define?${query}`)
+            
             //if the list returns nothing or is empty, early exits function
             if(!list){
                 interaction.reply("Can't find that word")
