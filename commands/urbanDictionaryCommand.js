@@ -21,7 +21,8 @@ module.exports = {
        
        
         try{
-             //gets information about word from urban dictionary api and converts it into json
+             //gets information about word from urban dictionary api and converts it into json.//gets information about word from urban dictionary api and converts it into json (await is for the response.json promise, 
+             //.then is for the fetch promise)
             const { list } = await fetch(`https://api.urbandictionary.com/v0/define?${query}`).then(response => response.json());
             
             //if the list returns nothing or is empty, early exits function
